@@ -30,6 +30,7 @@ if (!SpeechRecognition) {
 
   // Start the timer
   const startTimer = () => {
+    console.log("Timer started");
     timerInterval = setInterval(() => {
       seconds++;
       timer.textContent = formatTime(seconds);
@@ -38,6 +39,7 @@ if (!SpeechRecognition) {
 
   // Stop the timer
   const stopTimer = () => {
+    console.log("Timer stopped");
     clearInterval(timerInterval);
     seconds = 0;
     timer.textContent = "00:00";
@@ -45,6 +47,7 @@ if (!SpeechRecognition) {
 
   // Start recognition
   startButton.addEventListener("click", () => {
+    console.log("Start button clicked");
     recognition.start();
     transcript = ""; // Reset the transcript
     lastTranscript = ""; // Reset the last processed result
@@ -57,6 +60,7 @@ if (!SpeechRecognition) {
 
   // Stop recognition
   stopButton.addEventListener("click", () => {
+    console.log("Stop button clicked");
     recognition.stop();
     startButton.disabled = false;
     stopButton.disabled = true;
@@ -79,6 +83,7 @@ if (!SpeechRecognition) {
 
   // Handle download
   downloadButton.addEventListener("click", () => {
+    console.log("Download button clicked");
     const blob = new Blob([transcript], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -90,7 +95,7 @@ if (!SpeechRecognition) {
 
   // Handle errors
   recognition.addEventListener("error", (event) => {
-    alert("Error occurred: " + event.error);
+    console.error("Error occurred: " + event.error);
     startButton.disabled = false;
     stopButton.disabled = true;
     stopTimer();
@@ -98,6 +103,7 @@ if (!SpeechRecognition) {
 
   // Handle recognition end
   recognition.addEventListener("end", () => {
+    console.log("Recognition ended");
     startButton.disabled = false;
     stopButton.disabled = true;
   });
