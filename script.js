@@ -94,13 +94,28 @@ if (!SpeechRecognition) {
   // Handle download
   downloadButton.addEventListener("click", () => {
     console.log("Download button clicked");
-    const blob = new Blob([transcript], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "transcript.txt";
-    a.click();
-    URL.revokeObjectURL(url); // Clean up the URL
+
+    if (!transcript) {
+      alert("No transcript available to download.");
+      return;
+    }
+
+    try {
+      const blob = new Blob([transcript], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      // Create a temporary anchor tag
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "transcript.txt";
+      document.body.appendChild(a); // Append to the DOM for the click to work
+      a.click(); // Programmatically click the anchor
+      document.body.removeChild(a); // Clean up after the click
+      URL.revokeObjectURL(url); // Revoke the Blob URL
+    } catch (error) {
+      console.error("Failed to download transcript:", error);
+      alert("Failed to download the transcript. Copy the transcript manually:\n" + transcript);
+    }
   });
 
   // Handle errors
@@ -110,4 +125,4 @@ if (!SpeechRecognition) {
     stopButton.disabled = true;
     stopTimer();
   });
-      }
+                               }
