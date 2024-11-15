@@ -74,7 +74,6 @@ if (!SpeechRecognition) {
 
     // Add only if it's different from the last processed transcript
     if (newResult !== lastTranscript) {
-      // Add a new paragraph for every finalized sentence
       transcript += newResult + ".\n"; // Append with paragraph spacing
       lastTranscript = newResult; // Update the last processed sentence
       output.value = transcript; // Update the textarea
@@ -84,14 +83,11 @@ if (!SpeechRecognition) {
   // Handle recognition end
   recognition.addEventListener("end", () => {
     console.log("Recognition ended");
-    
+
     // Check if stop button is still enabled, which means the user hasn't stopped it manually
     if (!stopButton.disabled) {
       console.log("Restarting recognition");
       recognition.start(); // Restart recognition
-    } else {
-      startButton.disabled = false;
-      stopButton.disabled = true;
     }
   });
 
@@ -114,4 +110,4 @@ if (!SpeechRecognition) {
     stopButton.disabled = true;
     stopTimer();
   });
-                                  }
+      }
