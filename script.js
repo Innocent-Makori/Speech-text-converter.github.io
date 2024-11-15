@@ -81,6 +81,20 @@ if (!SpeechRecognition) {
     }
   });
 
+  // Handle recognition end
+  recognition.addEventListener("end", () => {
+    console.log("Recognition ended");
+    
+    // Check if stop button is still enabled, which means the user hasn't stopped it manually
+    if (!stopButton.disabled) {
+      console.log("Restarting recognition");
+      recognition.start(); // Restart recognition
+    } else {
+      startButton.disabled = false;
+      stopButton.disabled = true;
+    }
+  });
+
   // Handle download
   downloadButton.addEventListener("click", () => {
     console.log("Download button clicked");
@@ -100,11 +114,4 @@ if (!SpeechRecognition) {
     stopButton.disabled = true;
     stopTimer();
   });
-
-  // Handle recognition end
-  recognition.addEventListener("end", () => {
-    console.log("Recognition ended");
-    startButton.disabled = false;
-    stopButton.disabled = true;
-  });
-}
+                                  }
