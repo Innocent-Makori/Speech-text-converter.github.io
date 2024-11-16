@@ -24,13 +24,16 @@ body {
   
   h1 {
     color: #0e5c3c;
+    font-family: "Elephant", serif;
+    font-size:50px;
   }
   
   p {
     color: #f50f0f;
     margin-bottom: 20px;
+    font-family: "Georgia", serif;
+    font-size:35px;
   }
-  
   .timer-section {
     font-size: 18px;
     font-weight: bold;
